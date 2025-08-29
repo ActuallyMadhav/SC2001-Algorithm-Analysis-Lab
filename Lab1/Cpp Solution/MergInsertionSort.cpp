@@ -6,14 +6,35 @@
 void insertionSort(std::vector<int>& arr); // works
 void mergeSort(std::vector<int>& arr);
 void merge(std::vector<int>& leftArr, std::vector<int>& rightArr, std::vector<int>& arr);
-std::vector<int> generateArr(int size);
+std::vector<int> generateArr(int size, int max);
 void hybridSort(std::vector<int>& arr, int threshold);
 
 int main(){
-    
+    int size, max;
+    std::cout << "Enter size of data: ";
+    std::cin >> size;
+    std::cout << "Enter max val: ";
+    std::cin >> max;
+    srand(time(NULL));
+    std::vector<int> testData = generateArr(size, max);
 
+    // for(int x : testData){
+    //     std::cout << x << ' ';
+    // }
+
+    // std::cout << '\n' << '\n' << '\n';
+    // std::cout << testData.size();
 
     return 0;
+}
+
+std::vector<int> generateArr(int size, int max){
+    std::vector<int> randArr(size);
+    for(int i = 0; i < size; i++){
+        randArr[i] = rand() % max + 1;
+    }
+
+    return randArr;
 }
 
 void hybridSort(std::vector<int>& arr, int threshold){
