@@ -4,10 +4,17 @@
 #include <algorithm>
 
 void insertionSort(std::vector<int>& arr); // works
-void mergeSort(std::vector<int>& arr);
-void merge(std::vector<int>& leftArr, std::vector<int>& rightArr, std::vector<int>& arr);
-std::vector<int> generateArr(int size, int max);
-void hybridSort(std::vector<int>& arr, int threshold);
+void mergeSort(std::vector<int>& arr); // works
+void merge(std::vector<int>& leftArr, std::vector<int>& rightArr, std::vector<int>& arr); // works
+std::vector<int> generateArr(int size, int max); // works
+void hybridSort(std::vector<int>& arr, int threshold); // to be tested
+
+/* TODO:
+    1. combine merge-insertion sort
+    2. implement specified changed from pdf
+    3. test functionality
+    4. goon (most important)
+*/ 
 
 int main(){
     int size, max;
