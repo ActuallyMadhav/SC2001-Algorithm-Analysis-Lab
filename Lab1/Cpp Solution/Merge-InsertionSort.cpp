@@ -25,12 +25,18 @@ int main(){
     srand(time(NULL));
     std::vector<int> testData = generateArr(size, max);
 
-    // for(int x : testData){
-    //     std::cout << x << ' ';
-    // }
+    for(int x : testData){
+        std::cout << x << ' ';
+    }
 
-    // std::cout << '\n' << '\n' << '\n';
-    // std::cout << testData.size();
+    std::cout << '\n' << '\n' << '\n';
+    std::cout << testData.size() << '\n';
+
+    mergeSort(testData);
+
+    for(int x : testData){
+        std::cout << x << ' ';
+    }
 
     return 0;
 }
@@ -83,8 +89,8 @@ void mergeSort(std::vector<int>& arr){
 
     int middle = length / 2;
 
-    std::vector<int> leftArr;
-    std::vector<int> rightArr;
+    std::vector<int> leftArr(middle);
+    std::vector<int> rightArr(length-middle);
 
     for(int i = 0; i < length; i++){
         if(i < middle){
