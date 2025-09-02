@@ -3,11 +3,19 @@
 #include <ctime>
 #include <algorithm>
 
-void insertionSort(std::vector<int>& arr); // works
-void mergeSort(std::vector<int>& arr); // works
-void merge(std::vector<int>& leftArr, std::vector<int>& rightArr, std::vector<int>& arr); // works
+// sorting functions
+void insertionSort(std::vector<int>& arr, int n, int m); // to be tested
+void mergeSort(std::vector<int>& arr, int n, int m); // to be tested
+void merge(std::vector<int>& arr, int n, int m); // to be tested
+void hybridSort(std::vector<int>& arr, int m, int n, int S); // to be tested
+
+// arr generation
 std::vector<int> generateArr(int size, int max); // works
-void hybridSort(std::vector<int>& arr, int threshold); // to be tested
+void printArr(std::vector<int>&arr, int size); // works
+int compare(int a, int b); // works
+
+// global int for counting comparisons
+static int comparisons = 0;
 
 /* TODO:
     1. combine merge-insertion sort
@@ -17,28 +25,28 @@ void hybridSort(std::vector<int>& arr, int threshold); // to be tested
 */ 
 
 int main(){
-    int size, max;
-    std::cout << "Enter size of data: ";
+    int size, max, S;
+    max = 10000000;
+    std::cout << "Enter size of data (max 10e7): ";
     std::cin >> size;
-    std::cout << "Enter max val: ";
-    std::cin >> max;
+    if(size > max){
+        std::cout << "Error: Exceeded Maxmimum Size Limit" << '\n';
+        return 1;
+    }
+    std::cout << "Threshold value: ";
+    std::cin >> S;
     srand(time(NULL));
     std::vector<int> testData = generateArr(size, max);
 
-    for(int x : testData){
-        std::cout << x << ' ';
-    }
-
-    std::cout << '\n' << '\n' << '\n';
-    std::cout << testData.size() << '\n';
-
-    mergeSort(testData);
-
-    for(int x : testData){
-        std::cout << x << ' ';
-    }
-
     return 0;
+}
+
+////////// ARRAY GENERATION ///////////////////
+
+void printArr(std::vector<int>& arr, int size){
+    for(int i = 0; i < size; i++){
+        std::cout << arr[i] << '\n';
+    }
 }
 
 std::vector<int> generateArr(int size, int max){
@@ -50,93 +58,73 @@ std::vector<int> generateArr(int size, int max){
     return randArr;
 }
 
-void hybridSort(std::vector<int>& arr, int threshold){
-    int length = arr.size();
-    int mid = length / 2;
+int compare(int a, int b){
+    comparisons++;
+    if(a > b) return 1;
+    else if(a < b) return -1;
+    else return 0;
+}
 
-    if(length <= 1){
-        return;
-    }
-    else if(length > threshold){
-        mergeSort(arr);
+///////////// SORTING PORTION //////////////////
+
+void hybridSort(std::vector<int>& arr, int n, int m, int S){
+    int mid = (n + m) / 2;
+
+    if(m - n <= 0) return;
+    else if(m - n > S){
+        hybridSort(arr, n, mid, S);
+        hybridSort(arr, mid + 1, m, S);
+        merge(arr, n, m);
     }
     else{
-        insertionSort(arr);
+        insertionSort(arr, n, m);
     }
 }
 
 
-void insertionSort(std::vector<int>& arr){
-    int n = arr.size();
-
-    for(int i = 1; i < n; i++){
-        for(int j = i; j > 0; j--){
-            if(arr[j] < arr[j-1]){
-                int temp = arr[j];
-                arr[j] = arr[j-1];
-                arr[j-1] = temp;
-            }
-            else{
-                break;
-            }
-        }
-    }
+void insertionSort(std::vector<int>& arr, int n, int m){
+    // TODO
 }
 
 void mergeSort(std::vector<int>& arr){
-    int length = arr.size();
-    if(length <= 1) return;
+    // TODO
 
-    int middle = length / 2;
-
-    std::vector<int> leftArr(middle);
-    std::vector<int> rightArr(length-middle);
-
-    for(int i = 0; i < length; i++){
-        if(i < middle){
-            leftArr[i] = arr[i];
-        }
-        else{
-            rightArr[i-middle] = arr[i];
-        }
-    }
-
-    mergeSort(leftArr);
-    mergeSort(rightArr);
-    merge(leftArr, rightArr, arr);
+    // mergeSort(leftArr);
+    // mergeSort(rightArr);
+    // merge(leftArr, rightArr, arr);
 }
 
-void merge(std::vector<int>& leftArr, std::vector<int>& rightArr, std::vector<int>& arr){
-    int leftSize = leftArr.size();
-    int rightSize = rightArr.size();
+void merge(std::vector<int>& arr, int n, int m){
+    int mid = (m + n) / 2;
 
-    //indices
-    int i = 0;
-    int l = 0;
-    int r = 0;
+    int a = n;
+    int b = mid + 1;
+    int temp;
 
-    while(l < leftSize && r < rightSize){
-        if(leftArr[l] < rightArr[r]){
-            arr[i] = leftArr[l];
-            i++;
-            l++;
+    if(m- n <= 0) return;
+    while(a <= mid && b <= m){
+        int comp = compare(arr[a], arr[b]);
+        if(comp > 0){
+            temp = arr[b++];
+            for(int i = ++mid; i > a; i--){
+                arr[i] = arr[i-1];
+            }
+            arr[a++] = temp;
+        }
+        else if(comp < 0){
+            a++;
         }
         else{
-            arr[i] = rightArr[r];
-            i++;
-            r++;
+            if(a == mid && b == m) break;
+
+            temp = arr[b++];
+            a++;
+
+            for(int i = ++mid; i > a; i--){
+                arr[i] = arr[i-1];
+            }
+            arr[a++] = temp;
         }
     }
 
-    while(l < leftSize){
-        arr[i] = leftArr[l];
-        i++;
-        l++;
-    }
-
-    while(r < rightSize){
-        arr[i] = rightArr[r];
-        i++;
-        r++;
-    }
 }
