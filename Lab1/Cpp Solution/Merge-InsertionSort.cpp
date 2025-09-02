@@ -4,7 +4,7 @@
 #include <algorithm>
 
 // sorting functions
-void insertionSort(std::vector<int>& arr, int n, int m); // to be tested
+void insertionSort(std::vector<int>& arr); // to be tested
 void mergeSort(std::vector<int>& arr, int n, int m); // to be tested
 void merge(std::vector<int>& arr, int n, int m); // to be tested
 void hybridSort(std::vector<int>& arr, int m, int n, int S); // to be tested
@@ -12,6 +12,8 @@ void hybridSort(std::vector<int>& arr, int m, int n, int S); // to be tested
 // arr generation
 std::vector<int> generateArr(int size, int max); // works
 void printArr(std::vector<int>&arr, int size); // works
+
+// comparison counter
 int compare(int a, int b); // works
 
 // global int for counting comparisons
@@ -37,7 +39,9 @@ int main(){
     std::cin >> S;
     srand(time(NULL));
     std::vector<int> testData = generateArr(size, max);
+    printArr(testData, size);
 
+    
     return 0;
 }
 
@@ -68,26 +72,43 @@ int compare(int a, int b){
 ///////////// SORTING PORTION //////////////////
 
 void hybridSort(std::vector<int>& arr, int n, int m, int S){
-    int mid = (n + m) / 2;
+    int mid = (n + m) / 2; // midpoint
 
-    if(m - n <= 0) return;
+    if(m - n <= 0) return; // if empty
     else if(m - n > S){
-        hybridSort(arr, n, mid, S);
-        hybridSort(arr, mid + 1, m, S);
-        merge(arr, n, m);
+        hybridSort(arr, n, mid, S); // hybridSort(lefthalf)
+        hybridSort(arr, mid + 1, m, S); // hybridSort(righthalf)
+        merge(arr, n, m); // both arrays
     }
     else{
-        insertionSort(arr, n, m);
+        insertionSort(arr);
     }
 }
 
 
-void insertionSort(std::vector<int>& arr, int n, int m){
+void insertionSort(std::vector<int>& arr){
     // TODO
+    for(int i = 1; i < arr.size(); i++){
+        for(int j = i; j > 0; j--){
+            if(arr[j] < arr[j-1]){
+                std::swap(arr[j], arr[j-1]);
+            }
+            else break;
+        }
+    }
+
 }
 
-void mergeSort(std::vector<int>& arr){
+void mergeSort(std::vector<int>& arr, int n, int m){
     // TODO
+    int mid = (m + n) / 2;
+
+    if(m - n <= 0) return;
+    else{
+        mergeSort(arr, n, mid);
+        mergeSort(arr, mid + 1, m);
+        merge(arr, n, m);
+    }
 
     // mergeSort(leftArr);
     // mergeSort(rightArr);
