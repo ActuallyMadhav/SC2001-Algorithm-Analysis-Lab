@@ -2,6 +2,7 @@
 #include <vector>
 #include <ctime>
 #include <algorithm>
+#include <chrono>
 
 // sorting functions
 void insertionSort(std::vector<int>& arr); // to be tested
@@ -27,8 +28,11 @@ static int comparisons = 0;
 */ 
 
 int main(){
+
+    // initialization of variables
     int size, max, S;
     max = 10000000;
+
     std::cout << "Enter size of data (max 10e7): ";
     std::cin >> size;
     if(size > max){
@@ -37,10 +41,31 @@ int main(){
     }
     std::cout << "Threshold value: ";
     std::cin >> S;
+
+    // generation of random array
     srand(time(NULL));
     std::vector<int> testData = generateArr(size, max);
+    std::cout << '\n';
     printArr(testData, size);
+    std::cout << '\n';
 
+    // sorting begins here:
+    auto start = std::chrono::high_resolution_clock::now();
+    
+    hybridSort(testData, 0, testData.size()-1, S);
+
+    std::cout << '\n';
+    printArr(testData, size);
+    std::cout << '\n';
+
+    auto end = std::chrono::high_resolution_clock::now();
+
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+    double time_taken = duration.count();
+
+    std::cout << "Time taken: " << time_taken << " microseconds" << '\n';
+    std::cout << "Number of comparisons: " << comparisons << '\n';
     
     return 0;
 }
