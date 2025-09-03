@@ -46,7 +46,7 @@ int main(){
     srand(time(NULL));
     std::vector<int> testData = generateArr(size, max);
     std::cout << '\n';
-    printArr(testData, size);
+    //printArr(testData, size);
     std::cout << '\n';
 
     // sorting begins here:
@@ -55,16 +55,16 @@ int main(){
     hybridSort(testData, 0, testData.size()-1, S);
 
     std::cout << '\n';
-    printArr(testData, size);
+    //printArr(testData, size);
     std::cout << '\n';
 
     auto end = std::chrono::high_resolution_clock::now();
 
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
-    double time_taken = duration.count();
+    double time_taken = duration.count() / 1000000;
 
-    std::cout << "Time taken: " << time_taken << " microseconds" << '\n';
+    std::cout << "Time taken: " << time_taken << " seconds" << '\n';
     std::cout << "Number of comparisons: " << comparisons << '\n';
     
     return 0;
