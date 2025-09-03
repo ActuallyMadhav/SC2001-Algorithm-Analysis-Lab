@@ -5,10 +5,13 @@
 #include <chrono>
 
 // sorting functions
-void insertionSort(std::vector<int>& arr); // to be tested
-void mergeSort(std::vector<int>& arr, int n, int m); // to be tested
-void merge(std::vector<int>& arr, int n, int m); // to be tested
-void hybridSort(std::vector<int>& arr, int m, int n, int S); // to be tested
+
+// void insertionSort(std::vector<int>& arr); // no parameters except array - possibly problematic
+
+void insertionSort(std::vector<int>& arr, int n, int m); // to be tested
+void mergeSort(std::vector<int>& arr, int n, int m); // works
+void merge(std::vector<int>& arr, int n, int m); // works
+void hybridSort(std::vector<int>& arr, int m, int n, int S); // works
 
 // arr generation
 std::vector<int> generateArr(int size, int max); // works
@@ -46,7 +49,7 @@ int main(){
     srand(time(NULL));
     std::vector<int> testData = generateArr(size, max);
     std::cout << '\n';
-    //printArr(testData, size);
+    printArr(testData, size);
     std::cout << '\n';
 
     // sorting begins here:
@@ -55,14 +58,14 @@ int main(){
     hybridSort(testData, 0, testData.size()-1, S);
 
     std::cout << '\n';
-    //printArr(testData, size);
+    printArr(testData, size);
     std::cout << '\n';
 
     auto end = std::chrono::high_resolution_clock::now();
 
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
-    double time_taken = duration.count() / 1000000;
+    double time_taken = duration.count() / 1000000.0;
 
     std::cout << "Time taken: " << time_taken << " seconds" << '\n';
     std::cout << "Number of comparisons: " << comparisons << '\n';
@@ -106,22 +109,38 @@ void hybridSort(std::vector<int>& arr, int n, int m, int S){
         merge(arr, n, m); // both arrays
     }
     else{
-        insertionSort(arr);
+        insertionSort(arr, n, m);
     }
 }
 
+////////////////// insertion sort 1 - might be problematic ////////////////////////
 
-void insertionSort(std::vector<int>& arr){
-    // TODO
-    for(int i = 1; i < arr.size(); i++){
-        for(int j = i; j > 0; j--){
-            if(arr[j] < arr[j-1]){
+// void insertionSort(std::vector<int>& arr){
+//     // TODO
+//     for(int i = 1; i < arr.size(); i++){
+//         for(int j = i; j > 0; j--){
+//             if(arr[j] < arr[j-1]){
+//                 std::swap(arr[j], arr[j-1]);
+//             }
+//             else break;
+//         }
+//     }
+
+// }
+
+////////////////// insertion sort 2 ////////////////////////
+
+void insertionSort(std::vector<int>& arr, int n, int m){
+    for(int i = n + 1; i <= m; i++){
+        for(int j = i; j > n; j--){
+            if(compare(arr[j], arr[j-1]) < 0){
                 std::swap(arr[j], arr[j-1]);
             }
-            else break;
+            else{
+                break;
+            }
         }
     }
-
 }
 
 void mergeSort(std::vector<int>& arr, int n, int m){
