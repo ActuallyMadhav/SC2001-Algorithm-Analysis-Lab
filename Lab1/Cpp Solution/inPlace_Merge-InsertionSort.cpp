@@ -48,18 +48,18 @@ int main(){
     // generation of random array
     srand(time(NULL));
     std::vector<int> testData = generateArr(size, max);
-    std::cout << '\n';
-    printArr(testData, size);
-    std::cout << '\n';
+    // std::cout << '\n';
+    // printArr(testData, size);
+    // std::cout << '\n';
 
     // sorting begins here:
     auto start = std::chrono::high_resolution_clock::now();
     
     hybridSort(testData, 0, testData.size()-1, S);
 
-    std::cout << '\n';
-    printArr(testData, size);
-    std::cout << '\n';
+    // std::cout << '\n';
+    // printArr(testData, size);
+    // std::cout << '\n';
 
     auto end = std::chrono::high_resolution_clock::now();
 
