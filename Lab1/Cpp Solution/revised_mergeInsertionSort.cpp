@@ -4,14 +4,15 @@
 #include <chrono>
 #include <ctime>
 
+// global variable to track across all functions
 static long long comparisons = 0;
 
-std::vector<int> generateRandomArray(int size, int max);
-void printArr(std::vector<int>& arr);
-void insertionSort(std::vector<int>& arr, int left, int right);
-void merge(std::vector<int>& arr, int left, int mid, int right);
-void mergeSort(std::vector<int>& arr, int left, int right);
-void hybridSort(std::vector<int>& arr, int left, int right, int S);
+std::vector<int> generateRandomArray(int size, int max); // works
+void printArr(std::vector<int>& arr); // works
+void insertionSort(std::vector<int>& arr, int left, int right); // works
+void merge(std::vector<int>& arr, int left, int mid, int right); // works
+void mergeSort(std::vector<int>& arr, int left, int right); // works
+void hybridSort(std::vector<int>& arr, int left, int right, int S); // works
 
 int main(){
 
@@ -101,6 +102,8 @@ void merge(std::vector<int>& arr, int left, int mid, int right){
     std::vector<int> leftArr(leftSize);
     std::vector<int> rightArr(rightSize);
 
+    // building the left and right sub arrays
+
     for(int i = 0; i < leftSize; i++){
         leftArr[i] = arr[left + i];
     }
@@ -108,6 +111,7 @@ void merge(std::vector<int>& arr, int left, int mid, int right){
         rightArr[j] = arr[mid + 1 + j];
     }
 
+    // sorting left and right sub arrays, then building them back into a completely sorted array
     int i = 0;
     int j = 0;
     int k = left;
@@ -132,17 +136,17 @@ void merge(std::vector<int>& arr, int left, int mid, int right){
 }
 
 void hybridSort(std::vector<int>& arr, int left, int right, int S){
-    if(left >= right) return;
+    if(left >= right) return; // arr is empty or single element -> alr sorted
 
     int size = right - left + 1;
 
     if(size <= S){
-        insertionSort(arr, left, right);
+        insertionSort(arr, left, right); // size < threshold -> insertion sort
     }
     else{
         int mid = left + (right - left) / 2;
-
-        hybridSort(arr, left, mid, S);
+        
+        hybridSort(arr, left, mid, S);      // recursively hybrid sorted -> same logic as merge sort
         hybridSort(arr, mid+1, right, S);
         merge(arr, left, mid, right);
     }
