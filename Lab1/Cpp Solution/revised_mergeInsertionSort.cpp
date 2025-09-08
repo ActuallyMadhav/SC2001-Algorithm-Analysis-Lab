@@ -30,6 +30,12 @@ int main(){
     std::vector<int> arr = generateRandomArray(size, maxVal);
     printArr(arr);
 
+    // test input (to compare with python)
+    // [845, 13, 235, 608, 423, 467, 659, 698, 445, 457]
+    // int threshold = 2;
+
+    // std::vector<int> arr = {845, 12, 235, 608, 423, 467, 659, 698, 445, 457};
+
     //clock start when sorting starts
     auto start = std::chrono::high_resolution_clock::now();
     hybridSort(arr, 0, arr.size()-1, threshold);
