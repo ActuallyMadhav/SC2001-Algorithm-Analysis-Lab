@@ -1,8 +1,9 @@
 import sys
 
 def dijkstra_AdjMat(adjMatrix, source):
+    INF = sys.maxsize
     V = len(adjMatrix)
-    dist = [sys.maxsize] * V
+    dist = [INF] * V
     visited = [False] * V
 
     dist[source] = 0
