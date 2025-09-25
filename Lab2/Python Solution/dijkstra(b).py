@@ -42,6 +42,6 @@ if __name__ == "__main__":
         [(2, 2), (6, 6), (7, 7)]       # Node 8
     ]
 
-    source_node = 0
-    print(f"Running Dijkstra from source node {source_node}:\n")
-    dijkstra_MinHeap(adj_list, source_node)
+
+    print("Running Dijkstra from source node 0:\n")
+    dijkstra_MinHeap(adj_list, source = 0)
