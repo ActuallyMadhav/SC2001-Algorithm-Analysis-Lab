@@ -23,8 +23,8 @@ def dijkstra_MinHeap(adjList, source):
                 pi[v] = u
                 heapq.heappush(pq, (dist[v], v))
     
-    for i in range(V):
-        print(f"Distance to {i}: {dist[i]}")
+    # for i in range(V):
+    #     print(f"Distance to {i}: {dist[i]}")
     
     return dist, pi
 ###########################################################

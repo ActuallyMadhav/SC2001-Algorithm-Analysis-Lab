@@ -27,8 +27,8 @@ def dijkstra_AdjMat(adjMatrix, source):
                     dist[v] = dist[u] + adjMatrix[u][v]
                     pi[v] = u  
 
-    for k in range(V):
-        print(f"Distance to {k}: {dist[k]}")
+    # for k in range(V):
+    #     print(f"Distance to {k}: {dist[k]}")
 
     return dist, pi
 
