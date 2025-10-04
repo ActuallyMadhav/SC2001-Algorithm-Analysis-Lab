@@ -1,32 +1,40 @@
 #include "dijkstra2methods.hpp"
 #include <iostream>
 
-int main(){
-    const int INF = INT_MAX;
+int main() {
+    int source = 0;
 
-    //////////////// PART (A) ////////////////////////
+    // -------------------- Adjacency Matrix --------------------
     std::vector<std::vector<int>> adjMatrix = {
-        {0, 2, INF, 1},
-        {2, 0, 3, INF},
-        {INF, 3, 0, 4},
-        {1, INF, 4, 0}
+        {0, 4, INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX, 8, INT_MAX},
+        {4, 0, 8, INT_MAX, INT_MAX, INT_MAX, INT_MAX, 11, INT_MAX},
+        {INT_MAX, 8, 0, 7, INT_MAX, 4, INT_MAX, INT_MAX, 2},
+        {INT_MAX, INT_MAX, 7, 0, 9, 14, INT_MAX, INT_MAX, INT_MAX},
+        {INT_MAX, INT_MAX, INT_MAX, 9, 0, 10, INT_MAX, INT_MAX, INT_MAX},
+        {INT_MAX, INT_MAX, 4, 14, 10, 0, 2, INT_MAX, INT_MAX},
+        {INT_MAX, INT_MAX, INT_MAX, INT_MAX, INT_MAX, 2, 0, 1, 6},
+        {8, 11, INT_MAX, INT_MAX, INT_MAX, INT_MAX, 1, 0, 7},
+        {INT_MAX, INT_MAX, 2, INT_MAX, INT_MAX, INT_MAX, 6, 7, 0}
     };
 
-    int source1 = 0;
+    auto [distMatrix, piMatrix] = dijkstra_AdjMatrix(adjMatrix, source);
+    exportToDot_AdjMatrix(adjMatrix, piMatrix, "adjMatrix.dot");
 
-    dijkstra_AdjMatrix(adjMatrix, source1);
-
-    //////////////// PART (B) ////////////////////////
+    // -------------------- Adjacency List --------------------
     std::vector<std::vector<std::pair<int, int>>> adjList = {
-        {{1, 2}, {3, 1}},     // Node 0
-        {{0, 2}, {2, 3}},     // Node 1
-        {{1, 3}, {3, 4}},     // Node 2
-        {{0, 1}, {2, 4}}      // Node 3
+        {{1, 4}, {7, 8}},
+        {{0, 4}, {2, 8}, {7, 11}},
+        {{1, 8}, {3, 7}, {5, 4}, {8, 2}},
+        {{2, 7}, {4, 9}, {5, 14}},
+        {{3, 9}, {5, 10}},
+        {{2, 4}, {3, 14}, {4, 10}, {6, 2}},
+        {{5, 2}, {7, 1}, {8, 6}},
+        {{0, 8}, {1, 11}, {6, 1}, {8, 7}},
+        {{2, 2}, {6, 6}, {7, 7}}
     };
 
-    int source2 = 0;
-
-    dijkstra_MinHeap(adjList, source2);
+    auto [distHeap, piHeap] = dijkstra_MinHeap(adjList, source);
+    exportToDot_AdjList(adjList, piHeap, "adjList.dot");
 
     return 0;
 }
