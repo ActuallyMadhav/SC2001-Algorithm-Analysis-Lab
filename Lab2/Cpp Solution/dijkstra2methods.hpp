@@ -90,6 +90,7 @@ std::pair<std::vector<int>, std::vector<int>> dijkstra_MinHeap(const std::vector
             if(dist[u] + weight < dist[v]){
                 dist[v] = dist[u] + weight;
                 pq.push({dist[v], v});
+                pi[v] = u;  // update path;
             }
         }
     }
