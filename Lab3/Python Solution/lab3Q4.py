@@ -7,7 +7,6 @@ def max_profit(C, weights, profits):
                 dp[c] = max(dp[c], dp[c - weights[i]] + profits[i])
     
     print(dp)
-    print()
     return dp[C]
 
 # First test case
@@ -15,6 +14,8 @@ weights1 = [4, 6, 8]
 profits1 = [7, 6, 9]
 C = 14
 print("P(14) for first set:", max_profit(C, weights1, profits1))
+
+print()
 
 # Second test case
 weights2 = [5, 6, 8]
