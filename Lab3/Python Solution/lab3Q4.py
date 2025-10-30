@@ -5,6 +5,9 @@ def max_profit(C, weights, profits):
         for i in range(len(weights)):
             if weights[i] <= c:
                 dp[c] = max(dp[c], dp[c - weights[i]] + profits[i])
+    
+    print(dp)
+    print()
     return dp[C]
 
 # First test case

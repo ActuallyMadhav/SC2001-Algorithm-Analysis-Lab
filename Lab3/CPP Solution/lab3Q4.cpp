@@ -12,6 +12,9 @@ int maxProfit(int C, const std::vector<int>& weights, const std::vector<int>& pr
             }
         }
     }
+
+    for(int x : dp){std::cout << x << ' ';}
+    std::cout << '\n';
     return dp[C];
 }
 
