@@ -24,12 +24,13 @@ int main(){
     std::vector<int> profits1 = {7,6,9};
     int C = 14;
 
-    std::cout << "P(14) for set 1: " << maxProfit(C, weights1, profits1) << '\n';
+    printf("P(14) for set 1: %d\n", maxProfit(C, weights1, profits1));
+
+    std::cout << '\n';
 
     std::vector<int> weights2 = {5,6,8};
     std::vector<int> profits2 = {7,6,9};
 
-    std::cout << "P(14) for set 2: " << maxProfit(C, weights2, profits2) << '\n';
-
+    printf("P(14) for set 2: %d\n", maxProfit(C, weights2, profits2));
     return 0;
 }
