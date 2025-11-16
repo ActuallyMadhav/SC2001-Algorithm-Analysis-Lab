@@ -1,4 +1,4 @@
-#include "dijkstra2methods.hpp"
+#include "dijkstra2methods.hpp" // see dijkstra2methods.hpp for all implementations and source code
 #include <iostream>
 #include <vector>
 #include <climits>
